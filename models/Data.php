@@ -17,13 +17,7 @@ use Yii;
  */
 class Data extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'data';
-    }
+
 
     /**
      * {@inheritdoc}
@@ -31,14 +25,14 @@ class Data extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'myKad'], 'required'],
+            [['name', 'idcard'], 'required'],
             [['license_id'], 'default', 'value' => null],
             [['license_id'], 'integer'],
             [['name'], 'string', 'max' => 150],
             [['myKad'], 'string', 'max' => 17],
             [['licenseNo'], 'string', 'max' => 50],
             [['myKad'], 'unique'],
-            [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseType::className(), 'targetAttribute' => ['license_id' => 'id']],
+            [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseType::class, 'targetAttribute' => ['license_id' => 'id']],
         ];
     }
 
@@ -50,7 +44,7 @@ class Data extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'myKad' => 'My Kad',
+            'idcard' => 'My Kad',
             'licenseNo' => 'License No',
             'license_id' => 'License ID',
         ];
@@ -63,6 +57,6 @@ class Data extends \yii\db\ActiveRecord
      */
     public function getLicense()
     {
-        return $this->hasOne(LicenseType::className(), ['id' => 'license_id']);
+        return $this->hasOne(LicenseType::class, ['id' => 'license_id']);
     }
 }

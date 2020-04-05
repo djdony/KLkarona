@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%banks}}`.
+ * Handles the creation of table `banks`.
  */
 class m200331_172139_create_banks_table extends Migration
 {
@@ -12,7 +12,7 @@ class m200331_172139_create_banks_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%banks}}', [
+        $this->createTable('bank', [
             'id' => $this->primaryKey(),
             'title' => $this->string(12)->notNull()->unique(),
             'active' => $this->boolean()->defaultValue(true)->notNull(),
@@ -21,6 +21,13 @@ class m200331_172139_create_banks_table extends Migration
             'updated_at' => $this->timestamp(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
+
+        //index for active
+        $this->createIndex(
+          'idx-bank-active',
+          'bank',
+          'active'
+        );
     }
 
     /**
@@ -28,6 +35,6 @@ class m200331_172139_create_banks_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%banks}}');
+        $this->dropTable('bank');
     }
 }

@@ -17,7 +17,7 @@ use yii\bootstrap\ActiveForm;
             'id' => 'data-form',
             'layout' => 'inline',
         ]); ?>
-        <?= $form->field($model, 'myKad')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'idcard')->textInput(['autofocus' => true]) ?>
       <div class="form-group">
 
 

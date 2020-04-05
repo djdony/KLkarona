@@ -10,12 +10,15 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'name' => 'Admin Panel',
+    'homeUrl' => 'admin',
 
 
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'defaultRoute' => 'main',
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
@@ -36,7 +39,7 @@ $config = [
             'enableAutoLogin' => false,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'main/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

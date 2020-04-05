@@ -13,10 +13,11 @@ DONE.
 1. migrations
 2. admin module
 3. controllers, models.
+4. Admin panel for verificate profile by region
 
 TODO
 1. myKAD(idcard) verification from model DATA and fill PROFILE
-2. Admin panel for update PROFILE
+2. Update and verificate PROFILE
 3. Validations and verification of PROFILE from DATA (name, idcard)
 4. Verification of PROFILE and change status(Verified).
 5. Some Charts, Dashboard.

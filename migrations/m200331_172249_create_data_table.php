@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%data}}`.
+ * Handles the creation of table `data`.
  */
 class m200331_172249_create_data_table extends Migration
 {
@@ -12,7 +12,7 @@ class m200331_172249_create_data_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%data}}', [
+        $this->createTable('data', [
             'id' => $this->primaryKey(),
             'name' => $this->string(150)->notNull(),
             'idcard' => $this->string(17)->notNull()->unique(),
@@ -26,19 +26,18 @@ class m200331_172249_create_data_table extends Migration
 
         // creates index for column `license_id`
         $this->createIndex(
-            '{{%idx-license_id}}',
-            '{{%data}}',
+            'idx-license_id',
+            'data',
             'license_id'
         );
 
-        // add foreign key for table `{{%license}}`
+        // add foreign key for table `license`
         $this->addForeignKey(
-            '{{%fk-license_id}}',
-            '{{%data}}',
+            'fk-license_id',
+            'data',
             'license_id',
-            '{{%license_types}}',
+            'license_type',
             'id',
-            'CASCADE'
         );
     }
 
@@ -47,6 +46,6 @@ class m200331_172249_create_data_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%data}}');
+        $this->dropTable('data');
     }
 }

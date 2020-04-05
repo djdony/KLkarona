@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\models;
 
+use app\models\Region;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
@@ -22,13 +23,6 @@ use yii\web\IdentityInterface;
  */
 class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'backend_users';
-    }
 
     /**
      * {@inheritdoc}
@@ -67,8 +61,9 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getUserRegions()
     {
-        return $this->hasMany(UserRegion::className(), ['user_id' => 'id']);
+        return $this->hasMany(UserRegion::class, ['user_id' => 'id']);
     }
+
 
     /**
      * Gets query for [[Regions]].
@@ -77,7 +72,7 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getRegions()
     {
-        return $this->hasMany(Regions::className(), ['id' => 'region_id'])->viaTable('user_region', ['user_id' => 'id']);
+        return $this->hasMany(Region::class, ['id' => 'region_id'])->viaTable('user_region', ['user_id' => 'id']);
     }
 
     /**

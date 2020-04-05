@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "banks".
+ * This is the model class for table "bank".
  *
  * @property int $id
  * @property string $title
@@ -19,13 +19,6 @@ use Yii;
  */
 class Bank extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'banks';
-    }
 
     /**
      * {@inheritdoc}
@@ -66,6 +59,6 @@ class Bank extends \yii\db\ActiveRecord
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profiles::className(), ['bank_id' => 'id']);
+        return $this->hasMany(Profile::class, ['bank_id' => 'id']);
     }
 }

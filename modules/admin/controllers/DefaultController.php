@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\models\Profile;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -18,7 +19,7 @@ class DefaultController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout'],
                 'rules' => [
                     [
@@ -29,7 +30,7 @@ class DefaultController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -46,21 +47,35 @@ class DefaultController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
     /**
-     * Displays homepage.
+     * Displays Admin Panel.
      *
      * @return string
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            return $this->actionLogin();
+        } else {
+            // Get regions of Autorized User
+            $user_regions = Yii::$app->user->identity->regions;
+            $regions = [];
+            foreach ($user_regions as $user_region) {
+                array_push($regions, $user_region->id);
+            }
+
+           /* $profiles = Profile::find()->where([
+                'region_id' => $regions
+            ])->all();*/
+
+            // Find all profiles with regions of user
+           $profiles = Profile::findAll(['region_id' => $regions]);
+
+            return $this->render('index', compact('profiles'));
+        }
     }
 
     /**
@@ -71,15 +86,14 @@ class DefaultController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->render('index');
+            return $this->redirect('index');
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->render('index');
+            return $this->redirect('index');
         }
 
-        $model->password = '';
         return $this->render('login', [
             'model' => $model,
         ]);
@@ -94,7 +108,7 @@ class DefaultController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->render('index');
+        return $this->redirect('login');
     }
 
 

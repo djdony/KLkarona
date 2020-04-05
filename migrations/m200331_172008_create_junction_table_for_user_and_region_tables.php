@@ -3,11 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%user_region}}`.
+ * Handles the creation of table `user_region`.
  * Has foreign keys to the tables:
  *
- * - `{{%user}}`
- * - `{{%region}}`
+ * - `user`
+ * - `region`
  */
 class m200331_172008_create_junction_table_for_user_and_region_tables extends Migration
 {
@@ -16,7 +16,7 @@ class m200331_172008_create_junction_table_for_user_and_region_tables extends Mi
      */
     public function safeUp()
     {
-        $this->createTable('{{%user_region}}', [
+        $this->createTable('user_region', [
             'user_id' => $this->integer(),
             'region_id' => $this->integer(),
             'PRIMARY KEY(user_id, region_id)',
@@ -24,36 +24,34 @@ class m200331_172008_create_junction_table_for_user_and_region_tables extends Mi
 
         // creates index for column `user_id`
         $this->createIndex(
-            '{{%idx-user_region-user_id}}',
-            '{{%user_region}}',
+            'idx-user_region-user_id',
+            'user_region',
             'user_id'
         );
 
-        // add foreign key for table `{{%user}}`
+        // add foreign key for table `user`
         $this->addForeignKey(
-            '{{%fk-user_region-user_id}}',
-            '{{%user_region}}',
+            'fk-user_region-user_id',
+            'user_region',
             'user_id',
-            '{{%backend_users}}',
+            'backend_user',
             'id',
-            'CASCADE'
         );
 
         // creates index for column `region_id`
         $this->createIndex(
-            '{{%idx-user_region-region_id}}',
-            '{{%user_region}}',
+            'idx-user_region-region_id',
+            'user_region',
             'region_id'
         );
 
-        // add foreign key for table `{{%region}}`
+        // add foreign key for table `region`
         $this->addForeignKey(
-            '{{%fk-user_region-region_id}}',
-            '{{%user_region}}',
+            'fk-user_region-region_id',
+            'user_region',
             'region_id',
-            '{{%regions}}',
+            'region',
             'id',
-            'CASCADE'
         );
     }
 
@@ -62,30 +60,30 @@ class m200331_172008_create_junction_table_for_user_and_region_tables extends Mi
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%user}}`
+        // drops foreign key for table `user`
         $this->dropForeignKey(
-            '{{%fk-user_region-user_id}}',
-            '{{%user_region}}'
+            'fk-user_region-user_id',
+            'user_region'
         );
 
         // drops index for column `user_id`
         $this->dropIndex(
-            '{{%idx-user_region-user_id}}',
-            '{{%user_region}}'
+            'idx-user_region-user_id',
+            'user_region'
         );
 
-        // drops foreign key for table `{{%region}}`
+        // drops foreign key for table `region`
         $this->dropForeignKey(
-            '{{%fk-user_region-region_id}}',
-            '{{%user_region}}'
+            'fk-user_region-region_id',
+            'user_region'
         );
 
         // drops index for column `region_id`
         $this->dropIndex(
-            '{{%idx-user_region-region_id}}',
-            '{{%user_region}}'
+            'idx-user_region-region_id',
+            'user_region'
         );
 
-        $this->dropTable('{{%user_region}}');
+        $this->dropTable('user_region');
     }
 }

@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "license_types".
+ * This is the model class for table "license_type".
  *
  * @property int $id
  * @property string $title
@@ -20,14 +20,6 @@ use Yii;
  */
 class LicenseType extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'license_types';
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -67,7 +59,7 @@ class LicenseType extends \yii\db\ActiveRecord
      */
     public function getDatas()
     {
-        return $this->hasMany(Data::className(), ['license_id' => 'id']);
+        return $this->hasMany(Data::class, ['license_id' => 'id']);
     }
 
     /**
@@ -77,6 +69,6 @@ class LicenseType extends \yii\db\ActiveRecord
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profiles::className(), ['license_id' => 'id']);
+        return $this->hasMany(Profile::class, ['license_id' => 'id']);
     }
 }

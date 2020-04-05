@@ -3,7 +3,7 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%regions}}`.
+ * Handles the creation of table `regions`.
  */
 class m200331_161931_create_regions_table extends Migration
 {
@@ -12,7 +12,7 @@ class m200331_161931_create_regions_table extends Migration
      */
     public function safeUp()
     {
-        $this->createTable('{{%regions}}', [
+        $this->createTable('region', [
             'id' => $this->primaryKey(),
             'title' => $this->string(12)->notNull()->unique(),
             'active' => $this->boolean()->defaultValue(true)->notNull(),
@@ -21,6 +21,12 @@ class m200331_161931_create_regions_table extends Migration
             'updated_at' => $this->timestamp(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
+        //index for active
+        $this->createIndex(
+          'idx-region-active',
+          'region',
+          'active'
+        );
     }
 
     /**
@@ -28,6 +34,6 @@ class m200331_161931_create_regions_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%regions}}');
+        $this->dropTable('region');
     }
 }

@@ -10,7 +10,13 @@ use app\models\LicenseType;
 /* @var $this yii\web\View */
 /* @var $model app\models\Profile */
 /* @var $form ActiveForm */
+
+// here used a lot php as i see.
+// for me clean HTML looks prettier than YII widget format.
+
+// that's OK. You can use some templating engine if you want.
 ?>
+
 <div class="profile">
 
     <?php $form = ActiveForm::begin([
@@ -26,9 +32,7 @@ use app\models\LicenseType;
   <h1 class="redw">A. MAKLUMAT PEMOHON</h1>
   <div class="bg-warning">
 
-
-    <div class="row">
-
+    <div class="row"> <!-- what's columns grid? -->
         <?= $form->field($model, 'name', ['options' => ['class' => 'form-group col-md-8']])->label('Nama Pemohon') ?>
         <?= $form->field($model, 'phone', ['options' => ['class' => 'form-group col-md-4']])->label('No.Telefon') ?>
     </div>
@@ -39,7 +43,7 @@ use app\models\LicenseType;
     </div>
 
     <div class="row">
-        <?= $form->field($model, 'licenseNo', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan') ?>
+        <?= $form->field($model, 'license_no', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan') ?>
         <?= $form->field($model, 'license_id', ['options' => ['class' => 'form-group col-md-4']])->dropDownList(
             ArrayHelper::map(LicenseType::find()->all(), 'id', 'title'),
             ['prompt' => 'Select Licence Type']
@@ -88,6 +92,4 @@ use app\models\LicenseType;
       <?php ActiveForm::end(); ?>
 
   </div><!-- profile -->
-
-
 
