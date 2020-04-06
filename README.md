@@ -14,10 +14,13 @@ DONE.
 2. admin module
 3. controllers, models.
 4. Admin panel for verificate profile by region
+5. Dashboard and CRUDs
+6. Authentication fixes
 
 TODO
-1. myKAD(idcard) verification from model DATA and fill PROFILE
-2. Update and verificate PROFILE
 3. Validations and verification of PROFILE from DATA (name, idcard)
-4. Verification of PROFILE and change status(Verified).
-5. Some Charts, Dashboard.
+5. Some Charts. ???
+
+USED PACKAGES
+1. https://github.com/dmstr/yii2-adminlte-asset
+2. https://github.com/kartik-v/yii2-widget-switchinput

@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
 /**
- * This is the model class for table "bank".
+ * This is the model class for table "region".
  *
  * @property int $id
  * @property string $title
@@ -15,9 +15,11 @@ use Yii;
  * @property string|null $updated_at
  * @property string|null $created_at
  *
- * @property Profiles[] $profiles
+ * @property Profile[] $profile
+ * @property UserRegion[] $userregion
+ * @property BackendUser[] $user
  */
-class Bank extends \yii\db\ActiveRecord
+class Region extends \yii\db\ActiveRecord
 {
 
     /**
@@ -30,7 +32,6 @@ class Bank extends \yii\db\ActiveRecord
             [['active'], 'boolean'],
             [['created_by', 'updated_by'], 'default', 'value' => null],
             [['created_by', 'updated_by'], 'integer'],
-            [['updated_at', 'created_at'], 'safe'],
             [['title'], 'string', 'max' => 12],
             [['title'], 'unique'],
         ];
@@ -59,6 +60,26 @@ class Bank extends \yii\db\ActiveRecord
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profile::class, ['bank_id' => 'id']);
+        return $this->hasMany(Profile::class, ['region_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Userregion]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserregion()
+    {
+        return $this->hasMany(UserRegion::class, ['region_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Users]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(BackendUser::class, ['id' => 'user_id'])->viaTable('user_region', ['region_id' => 'id']);
     }
 }

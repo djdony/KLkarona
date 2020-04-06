@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use app\models\Region;
 use Yii;
 
 /**

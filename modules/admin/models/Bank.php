@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models;
+namespace app\modules\admin\models;
 
 use Yii;
 
 /**
- * This is the model class for table "license_type".
+ * This is the model class for table "bank".
  *
  * @property int $id
  * @property string $title
@@ -15,11 +15,11 @@ use Yii;
  * @property string|null $updated_at
  * @property string|null $created_at
  *
- * @property Data[] $datas
  * @property Profiles[] $profiles
  */
-class LicenseType extends \yii\db\ActiveRecord
+class Bank extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -53,22 +53,12 @@ class LicenseType extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Datas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDatas()
-    {
-        return $this->hasMany(Data::class, ['license_id' => 'id']);
-    }
-
-    /**
      * Gets query for [[Profiles]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profile::class, ['license_id' => 'id']);
+        return $this->hasMany(Profile::class, ['bank_id' => 'id']);
     }
 }

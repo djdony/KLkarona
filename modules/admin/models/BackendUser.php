@@ -2,7 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use app\models\Region;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\web\IdentityInterface;
@@ -31,10 +30,10 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             [['username'], 'required'],
-            [['name', 'lastname', 'email'], 'string', 'max' => 250],
+            [['firstname', 'lastname', 'email'], 'string', 'max' => 250],
             [['username'], 'string', 'max' => 50],
             [['password'], 'string', 'max' => 255],
-            [['authKey'], 'string', 'max' => 1],
+            [['authKey'], 'string', 'max' => 100],
         ];
     }
 
@@ -104,7 +103,7 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        throw new NotSupportedException();
+        return $this->authKey;
     }
 
     /**
@@ -112,7 +111,7 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
      */
     public function validateAuthKey($authKey)
     {
-        throw new NotSupportedException();
+        return $this->authKey === $authKey;
     }
 
     public static function findByUsername($username)
@@ -122,6 +121,11 @@ class BackendUser extends \yii\db\ActiveRecord implements IdentityInterface
 
     public  function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->getSecurity()->validatePassword($password,$this->password);
+    }
+
+    public function generateAuthKey()
+    {
+        $this->authKey = Yii::$app->security->generateRandomString();
     }
 }

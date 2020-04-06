@@ -18,7 +18,7 @@ class m200331_141054_create_users_table extends Migration
             'lastname' => $this->string(250)->null(),
             'email' => $this->string(250)->null(),
             'username' => $this->string(50)->notNull(),
-            'password' => $this->string(50)->notNull(),
+            'password' => $this->string(100)->notNull(),
             'active' => $this->boolean()->defaultValue(true)->notNull(),
             'created_by' => $this->integer()->defaultValue(1)->notNull(),
             'created_at' => $this->timestamp()->defaultExpression('CURRENT_TIMESTAMP'),

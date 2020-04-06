@@ -13,10 +13,9 @@ use yii\web\Response;
 class MainController extends Controller
 {
 
-    const NOTACTIVE = 0; // deleted profile
-    const ACTIVE = 1; // active profile
-    const VERIFIED = 2; // verified for support profile
-    const NOTVERIFIED = 3; // not verified for suppport
+    const NOTVERIFIED = 0; // new not verified profile
+    const VERIFIED = 1; // verified profile for support
+    const OTHERS = 2; // There can be as much statuses as needed.
 
     public function actions()
     {
@@ -46,7 +45,7 @@ class MainController extends Controller
 
         // save profile ...
        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->status_id = self::ACTIVE;
+            $model->status_id = self::NOTVERIFIED;
             $model->save();
             Yii::$app->session->setFlash('success', 'Data Validated');
             return $this->render('entry-confirm', ['model' => $model]);

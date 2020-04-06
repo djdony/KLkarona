@@ -1,15 +1,11 @@
 <?php
 
-namespace app\models;
-use app\models\Profile;
+namespace app\modules\admin\models;
 
-
-use app\modules\admin\models\BackendUser;
-use app\modules\admin\models\UserRegion;
 use Yii;
 
 /**
- * This is the model class for table "region".
+ * This is the model class for table "license_type".
  *
  * @property int $id
  * @property string $title
@@ -19,13 +15,11 @@ use Yii;
  * @property string|null $updated_at
  * @property string|null $created_at
  *
+ * @property Data[] $datas
  * @property Profiles[] $profiles
- * @property UserRegion[] $userregion
- * @property BackendUsers[] $users
  */
-class Region extends \yii\db\ActiveRecord
+class LicenseType extends \yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
@@ -59,32 +53,22 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
+     * Gets query for [[Datas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDatas()
+    {
+        return $this->hasMany(Data::className(), ['license_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[Profiles]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getProfiles()
     {
-        return $this->hasMany(Profile::class, ['region_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Userregion]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserregion()
-    {
-        return $this->hasMany(UserRegion::class, ['region_id' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Users]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsers()
-    {
-        return $this->hasMany(BackendUser::class, ['id' => 'user_id'])->viaTable('user_region', ['region_id' => 'id']);
+        return $this->hasMany(Profiles::className(), ['license_id' => 'id']);
     }
 }
