@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\modules\admin\models\LicenseType;
 use Yii;
 
 /**
@@ -9,15 +10,25 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property string $myKad
+ * @property string $idcard
  * @property string|null $licenseNo
  * @property int|null $license_id
+ * @property int $created_by
+ * @property int|null $updated_by
+ * @property string|null $updated_at
+ * @property string|null $created_at
  *
  * @property LicenseType $license
  */
 class Data extends \yii\db\ActiveRecord
 {
-
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'data';
+    }
 
     /**
      * {@inheritdoc}
@@ -25,14 +36,8 @@ class Data extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'idcard'], 'required'],
-            [['license_id'], 'default', 'value' => null],
-            [['license_id'], 'integer'],
-            [['name'], 'string', 'max' => 150],
-            [['myKad'], 'string', 'max' => 17],
-            [['licenseNo'], 'string', 'max' => 50],
-            [['myKad'], 'unique'],
-            [['license_id'], 'exist', 'skipOnError' => true, 'targetClass' => LicenseType::class, 'targetAttribute' => ['license_id' => 'id']],
+            [['idcard'], 'required'],
+            ['idcard','match', 'pattern' => '/^\d{6}-\d{2}-\d{4}$/', 'message' => 'Idcard should be in format 123456-12-1234'],
         ];
     }
 
@@ -44,7 +49,7 @@ class Data extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'idcard' => 'My Kad',
+            'idcard' => 'Idcard',
             'licenseNo' => 'License No',
             'license_id' => 'License ID',
         ];
@@ -58,5 +63,15 @@ class Data extends \yii\db\ActiveRecord
     public function getLicense()
     {
         return $this->hasOne(LicenseType::class, ['id' => 'license_id']);
+    }
+
+    /**
+     * Gets data of model with idcard.
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public static function getDataByIdcard($idcard)
+    {
+        return self::find()->where(['idcard'=>$idcard])->one();
     }
 }

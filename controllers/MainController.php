@@ -3,11 +3,9 @@
 namespace app\controllers;
 
 use app\models\Data;
-use app\models\Profile;
-use yii\bootstrap\ActiveForm;
+use app\modules\admin\models\Profile;
 use yii\web\Controller;
 use Yii;
-use yii\web\Response;
 
 
 class MainController extends Controller
@@ -33,24 +31,41 @@ class MainController extends Controller
     public function actionIndex()
     {
         $model = new Data();
+        // check data and verify it with Profile table...
+        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->idcard) {
+            $profile = new Profile();
 
-        return $this->render('index', [
-            'model' => $model,
-        ]);
+            // If entered idcard has record in data table then run action with attributes
+            if (Data::getDataByIdcard($model->idcard))
+            {
+                Yii::$app->session->setFlash('success', 'Found Data');
+                $data = Data::getDataByIdcard($model->idcard)->attributes;
+                return $this->actionProfile($data);
+            }
+            //if data not found just new record without attributes.
+            Yii::$app->session->setFlash('info', 'New Record');
+            return $this->actionProfile();
+        } else {
+            //new data search page
+            return $this->render('index', [
+                'model' => $model,
+            ]);
+        }
     }
 
-    public function actionProfile()
+    public function actionProfile($data = [])
     {
         $model = new Profile();
+        $model->setAttributes($data);
 
-        // save profile ...
+        // save profile...
        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->status_id = self::NOTVERIFIED;
             $model->save();
             Yii::$app->session->setFlash('success', 'Data Validated');
             return $this->render('entry-confirm', ['model' => $model]);
         } else {
-            // View profile to edit
+            // New profile to edit
             return $this->render('profile', ['model' => $model]);
         }
     }

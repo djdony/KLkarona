@@ -3,18 +3,14 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
-use app\models\Region;
-use app\models\Bank;
-use app\models\LicenseType;
+use app\modules\admin\models\Bank;
+use app\modules\admin\models\Region;
+use app\modules\admin\models\LicenseType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Profile */
 /* @var $form ActiveForm */
 
-// here used a lot php as i see.
-// for me clean HTML looks prettier than YII widget format.
-
-// that's OK. You can use some templating engine if you want.
 ?>
 
 <div class="profile">
@@ -22,10 +18,10 @@ use app\models\LicenseType;
     <?php $form = ActiveForm::begin([
         'id' => 'profile-form',
         'layout' => 'horizontal',
+        'action' => 'main/profile',
         'fieldConfig' => [
             'horizontalCssClasses' => [
                 'label' => 'col-sm-4',
-
             ],
         ],
     ]); ?>
@@ -33,20 +29,23 @@ use app\models\LicenseType;
   <div class="bg-warning">
 
     <div class="row"> <!-- what's columns grid? -->
-        <?= $form->field($model, 'name', ['options' => ['class' => 'form-group col-md-8']])->label('Nama Pemohon') ?>
+        <?= $form->field($model, 'name', ['options' => ['class' => 'form-group col-md-8']])->label('Nama Pemohon')->textInput(['readonly' => $model->name]) ?>
         <?= $form->field($model, 'phone', ['options' => ['class' => 'form-group col-md-4']])->label('No.Telefon') ?>
     </div>
     <div class="row">
-        <?= $form->field($model, 'idcard', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan') ?>
+        <?= $form->field($model, 'idcard', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan')->textInput(['readonly' => $model->idcard]) ?>
         <?= $form->field($model, 'email', ['options' => ['class' => 'form-group col-md-4']])->label('Email') ?>
 
     </div>
 
     <div class="row">
-        <?= $form->field($model, 'license_no', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan') ?>
+        <?= $form->field($model, 'license_no', ['options' => ['class' => 'form-group col-md-8']])->label('No.Kad Pengenalan')->textInput(['readonly' => $model->license_no]) ?>
         <?= $form->field($model, 'license_id', ['options' => ['class' => 'form-group col-md-4']])->dropDownList(
             ArrayHelper::map(LicenseType::find()->all(), 'id', 'title'),
-            ['prompt' => 'Select Licence Type']
+            [
+                'prompt' => 'Select Licence Type',
+                'disabled' => ($model->license_id) ? 'disabled' : false
+            ]
         )->label('Jenis Permiagan') ?>
 
     </div>

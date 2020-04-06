@@ -5,7 +5,6 @@
 $this->title = 'My Yii Application';
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-
 ?>
 <div class="site-index">
 
@@ -15,9 +14,9 @@ use yii\bootstrap\ActiveForm;
 
         <?php $form = ActiveForm::begin([
             'id' => 'data-form',
-            'layout' => 'inline',
+            'layout' => 'horizontal',
         ]); ?>
-        <?= $form->field($model, 'idcard')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'idcard')->label(false) ?>
       <div class="form-group">
 
 

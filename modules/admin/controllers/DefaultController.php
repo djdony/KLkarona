@@ -25,11 +25,12 @@ class DefaultController extends AdminController
             array_push($regions, $user_region->id);
         }
 
+        /// Find total count of profiles with regions of user
         $profiles = Profile::find()->where([
             'region_id' => $regions
         ])->count();
 
-        // Find all profiles with regions of user
+        // Total counts of models in dashboard
         $regions = Region::find()->count();
         $license_types = LicenseType::find()->count();
         $banks = Bank::find()->count();

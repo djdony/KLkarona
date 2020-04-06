@@ -42,6 +42,8 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'idcard'], 'required'],
+            ['name','match', 'pattern' => '/^[a-zA-Z.,-]+(?:\s[a-zA-Z.,-]+)*$/', 'message' => 'Name can only contain Alphabet and Spaces only'],
+            ['idcard','match', 'pattern' => '/^\d{6}-\d{2}-\d{4}$/', 'message' => 'Idcard should be in format 123456-12-1234'],
             [['postcode', 'region_id', 'license_id', 'bank_id', 'bank_account', 'status_id', 'created_by', 'updated_by'], 'default', 'value' => null],
             [['postcode', 'region_id', 'license_id', 'bank_id', 'bank_account', 'status_id', 'created_by', 'updated_by'], 'integer'],
             [['sign_date', 'created_at', 'updated_at'], 'safe'],

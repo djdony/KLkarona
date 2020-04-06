@@ -16,7 +16,7 @@ class m200331_172249_create_data_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(150)->notNull(),
             'idcard' => $this->string(17)->notNull()->unique(),
-            'licenseNo' => $this->string(50)->null(),
+            'license_no' => $this->string(50)->null(),
             'license_id' => $this->integer()->null(),
             'created_by' => $this->integer()->defaultValue(1)->notNull(),
             'updated_by' => $this->integer()->null(),
@@ -37,7 +37,7 @@ class m200331_172249_create_data_table extends Migration
             'data',
             'license_id',
             'license_type',
-            'id',
+            'id'
         );
     }
 

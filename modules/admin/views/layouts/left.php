@@ -31,9 +31,11 @@
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
-                    ['label' => 'Home', 'icon' => 'file-code-o', 'url' => ['/admin']],
                     ['label' => 'Dashboard', 'icon' => 'file-code-o', 'url' => ['/admin']],
-                    ['label' => 'Login', 'url' => ['admin/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Regions', 'icon' => 'globe', 'url' => ['/admin/region']],
+                    ['label' => 'Profiles', 'icon' => 'users', 'url' => ['/admin/profile']],
+                    ['label' => 'Banks', 'icon' => 'bank', 'url' => ['/admin/bank']],
+                    ['label' => 'License Types', 'icon' => 'id-badge', 'url' => ['/admin/license-type']],
                 ],
             ]
         ) ?>

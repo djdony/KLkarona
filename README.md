@@ -16,11 +16,16 @@ DONE.
 4. Admin panel for verificate profile by region
 5. Dashboard and CRUDs
 6. Authentication fixes
+7. Validations and verification of PROFILE from DATA (name, idcard)
 
 TODO
-3. Validations and verification of PROFILE from DATA (name, idcard)
-5. Some Charts. ???
+
+1. Some Charts. ???
+2. Verify Bank Acount holder name with data. ???
 
 USED PACKAGES
-1. https://github.com/dmstr/yii2-adminlte-asset
-2. https://github.com/kartik-v/yii2-widget-switchinput
+1. https://github.com/dmstr/yii2-adminlte-asset (Admin Panel)
+2. https://github.com/kartik-v/yii2-widget-switchinput (Ajax switch for profile verification)
+
+Notes
+1. Idcard validation set in format 123456-12-1234
