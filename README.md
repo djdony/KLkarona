@@ -1,9 +1,9 @@
 <p align="center">
-    <h1 align="center">Yii 2 Basic Project KL test</h1>
+    <h1 align="center">Yii 2 Project Kuala Lumpur</h1>
     <br>
 </p>
 
-Terminology for kjusupov.
+Terminology for project.
 1. origin_data = model DATA
 2. application = model PROFILE
 3. *.passport_no = *.idcard
@@ -20,8 +20,8 @@ DONE.
 
 TODO
 
-1. Some Charts. ???
-2. Verify Bank Acount holder name with data. ???
+1. Some Charts. 
+2. Verify Bank Acount holder name with data. 
 
 USED PACKAGES
 1. https://github.com/dmstr/yii2-adminlte-asset (Admin Panel)
